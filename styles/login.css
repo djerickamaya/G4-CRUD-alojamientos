@@ -1,0 +1,90 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+main {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+section {
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.8rem;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 0.9rem;
+    color: #555555;
+    text-align: left;
+}
+
+.Estilos-Input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+.Estilos-Input:focus {
+    border-color: #007BFF;
+    outline: none;
+    background: #ffffff;
+}
+
+.Estilos-Button {
+    padding: 10px;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.Estilos-Button:hover {
+    background-color: #0056b3;
+}
+
+/* Paragraph and Link Styles */
+.Estilos-Parrafo {
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+.Estilos-Parrafo a {
+    color: #007BFF;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.Estilos-Parrafo a:hover {
+    color: #0056b3;
+}
