@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f3f4f6;
@@ -30,7 +30,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Form Styles */
+
 form {
     display: flex;
     flex-direction: column;
@@ -73,7 +73,6 @@ label {
     background-color: #0056b3;
 }
 
-/* Paragraph and Link Styles */
 .Estilos-Parrafo {
     font-size: 0.9rem;
     color: #666666;
