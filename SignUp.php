@@ -17,7 +17,7 @@
             $db = new DataBase();
             $conn = $db->getConnection();
     
-            // Preparar la consulta SQL para insertar los datos
+            // consulta sql para insertar datos
             $sql = "INSERT INTO usuarios (nombre, email, password) VALUES (:nombre, :email, :password)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':nombre', $nombre);
@@ -26,14 +26,13 @@
     
             // Ejecutar la consulta
             if ($stmt->execute()) {
-                echo "Cuenta creada con éxito.";
+                header("Location: Alojamientos.php");
+                exit();
             } else {
-                echo "Hubo un error al crear la cuenta.";
+                header("Location: SingUp.php?error=1");
             }
-        } else {
-            echo "Todos los campos son requeridos.";
-        }
     }
+}
     
 ?>
 
