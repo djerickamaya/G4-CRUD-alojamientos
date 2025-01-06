@@ -31,6 +31,6 @@
             <input type="submit" value="Guardar Cambios">
         </div>
     </form>
-    <a href="index.php">Volver a la lista de alojamientos</a>
+    <a href="../../controllers/AlojamientoController.php">Volver a la lista de alojamientos</a>
 </body>
 </html>

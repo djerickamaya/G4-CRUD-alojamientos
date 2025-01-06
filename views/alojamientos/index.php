@@ -26,7 +26,7 @@
         <input type="text" name="keywords" placeholder="Buscar por nombre o dirección">
         <input type="submit" value="Buscar">
     </form>
-    <a href="create.php">Crear nuevo alojamiento</a>
+    <a href="../../controllers/AlojamientoController.php?action=create">Crear nuevo alojamiento</a>
     <table>
         <thead>
             <tr>
@@ -48,8 +48,8 @@
                         <td><?php echo htmlspecialchars($alojamiento['precio']); ?></td>
                         <td><img src="<?php echo htmlspecialchars($alojamiento['imagen_url']); ?>" alt="Imagen de <?php echo htmlspecialchars($alojamiento['nombre']); ?>" width="100"></td>
                         <td>
-                            <a href="edit.php?id=<?php echo $alojamiento['id']; ?>">Editar</a>
-                            <a href="delete.php?id=<?php echo $alojamiento['id']; ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar este alojamiento?');">Eliminar</a>
+                            <a href="../../controllers/AlojamientoController.php?action=edit&&id=<?php echo $alojamiento['id']; ?>">Editar</a>
+                            <a href="../../controllers/AlojamientoController.php?action=delete&&id=<?php echo $alojamiento['id']; ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar este alojamiento?');">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

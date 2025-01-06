@@ -26,7 +26,7 @@
     
             // Ejecutar la consulta
             if ($stmt->execute()) {
-                header("Location: Alojamientos.php");
+                header("Location: Login.php");
                 exit();
             } else {
                 header("Location: SingUp.php?error=1");

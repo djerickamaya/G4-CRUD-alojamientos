@@ -16,12 +16,19 @@ class AlojamientoController {
     }
 
     public function index() {
+        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
+            header('Location: ../views/alojamientos/search.php');
+        }
         $stmt = $this->alojamiento->read();
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         require '../views/alojamientos/index.php';
     }
 
     public function create() {
+    
+        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
+            header('Location: ../views/alojamientos/search.php');
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->alojamiento->nombre = $_POST['nombre'];
             $this->alojamiento->descripcion = $_POST['descripcion'];
@@ -40,6 +47,9 @@ class AlojamientoController {
     }
 
     public function edit($id) {
+        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
+            header('Location: ../views/alojamientos/search.php');
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->alojamiento->id = $id;
             $this->alojamiento->nombre = $_POST['nombre'];
@@ -61,6 +71,9 @@ class AlojamientoController {
     }
 
     public function delete($id) {
+        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
+            header('Location: ../views/alojamientos/search.php');
+        }
         $this->alojamiento->id = $id;
         if ($this->alojamiento->delete()) {
             header('Location: index.php');
@@ -76,11 +89,20 @@ class AlojamientoController {
         require '../views/alojamientos/search.php';
     }
 
-    public function saveUserAlojamientos($usuario_id) {
+    public function select() {
+        $stmt = $this->alojamiento->read();
+        $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        require '../views/alojamientos/select.php';
+    }
+
+    public function saveUserAlojamientos() {
+        if (!isset($_SESSION['usuario_id'])) {
+            header('Location: ../views/alojamientos/search.php');
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $selectedAlojamientos = isset($_POST['alojamientos']) ? $_POST['alojamientos'] : [];
-            $this->usuarioAlojamiento->saveAlojamientos($usuario_id, $selectedAlojamientos);
-            $this->usuarioAlojamiento->deleteAlojamientos($usuario_id, $selectedAlojamientos);
+            $this->usuarioAlojamiento->saveAlojamientos($_SESSION["usuario_id"], $selectedAlojamientos);
+            #$this->usuarioAlojamiento->deleteAlojamientos($usuario_id, $selectedAlojamientos);
             header('Location: index.php');
         } else {
             $stmt = $this->alojamiento->read();
@@ -89,6 +111,8 @@ class AlojamientoController {
         }
     }
 }
+
+session_start();
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
@@ -109,9 +133,11 @@ switch ($action) {
         $id = isset($_GET['id']) ? $_GET['id'] : die('Error: ID no encontrado.');
         $controller->delete($id);
         break;
+    case 'select':
+        $controller->select();
+        break;
     case 'saveUserAlojamientos':
-        $usuario_id = isset($_GET['usuario_id']) ? $_GET['usuario_id'] : die('Error: ID no encontrado.');
-        $controller->saveUserAlojamientos($usuario_id);
+        $controller->saveUserAlojamientos();
         break;
     default:
         $controller->index();

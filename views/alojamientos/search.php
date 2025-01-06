@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php session_start(); ?>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -35,6 +36,12 @@
 </head>
 <body>
     <h1>Buscar Alojamientos</h1>
+    <nav style="margin-bottom: 16px;">
+        <a href="../../controllers/AlojamientoController.php?action=create">Crear nuevo alojamiento</a>
+        <a href="../../controllers/AlojamientoController.php">Volver a la lista de alojamientos</a>
+        <a href="../../controllers/AlojamientoController.php?action=select">Seleccionar alojamientos</a>
+        <a href="#">Usuario Seccion <?php echo $_SESSION['nombre'] ?> </a>
+    </nav>
     <form action="../../controllers/AlojamientoController.php?action=search" method="get">
         <input type="hidden" name="action" value="search">
         <input type="text" name="keywords" placeholder="Buscar por nombre o dirección">
