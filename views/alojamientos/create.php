@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Crear Nuevo Alojamiento</h1>
-    <form action="create.php" method="post">
+    <form action="../../controllers/AlojamientoController.php?action=create" method="post">
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>

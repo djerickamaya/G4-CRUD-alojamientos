@@ -1,7 +1,7 @@
 <?php
-require_once 'config/database.php';
-require_once 'models/Alojamiento.php';
-require_once 'models/UsuarioAlojamiento.php';
+require_once '../config/db.php';
+require_once '../models/Alojamiento.php';
+require_once '../models/UsuarioAlojamiento.php';
 
 class AlojamientoController {
     private $db;
@@ -18,7 +18,7 @@ class AlojamientoController {
     public function index() {
         $stmt = $this->alojamiento->read();
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        require 'views/alojamientos/index.php';
+       # require 'views/alojamientos/index.php';
     }
 
     public function create() {
@@ -30,7 +30,7 @@ class AlojamientoController {
             $this->alojamiento->imagen_url = $_POST['imagen_url'];
 
             if ($this->alojamiento->create()) {
-                header('Location: index.php');
+                header('Location: ../views/alojamientos/search.php');
             } else {
                 echo "Error al crear el alojamiento.";
             }
@@ -73,7 +73,7 @@ class AlojamientoController {
         $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
         $stmt = $this->alojamiento->search($keywords);
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        require 'views/alojamientos/index.php';
+       # require 'views/alojamientos/index.php';
     }
 
     public function saveUserAlojamientos($usuario_id) {
@@ -88,5 +88,22 @@ class AlojamientoController {
             require 'views/alojamientos/select.php';
         }
     }
+}
+
+$action = isset($_GET['action']) ? $_GET['action'] : '';
+
+$controller = new AlojamientoController();
+
+switch ($action) {
+    case 'create':
+        $controller->create();
+        break;
+    case 'search':
+        $controller->search();
+        break;
+    // Otros casos para diferentes acciones (index, edit, delete, etc.)
+    default:
+        $controller->index();
+        break;
 }
 ?>
