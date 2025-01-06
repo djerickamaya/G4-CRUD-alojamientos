@@ -2,10 +2,10 @@
 
 class DataBase {
     public $host = "localhost";
-    public $port = "3307"; // Añadir el puerto
+    public $port = "3306"; // Añadir el puerto
     public $dbname = "alojamientos_db";
     public $username = "root";
-    public $password = "alfaomega";
+    public $password = "";
     public $conn;
 
     public function getConnection() {
