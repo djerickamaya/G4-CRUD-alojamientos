@@ -22,7 +22,7 @@
 </head>
 <body>
     <h1>Alojamientos</h1>
-    <form action="index.php" method="get">
+    <form action="../../controllers/AlojamientoController.php?action=index" method="get">
         <input type="text" name="keywords" placeholder="Buscar por nombre o dirección">
         <input type="submit" value="Buscar">
     </form>

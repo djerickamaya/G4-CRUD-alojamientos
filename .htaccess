@@ -5,7 +5,7 @@
     # Redirigir todas las solicitudes a search.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ views/alojamientos/search.php [QSA,L]
+    RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>
 
 # Configuración de seguridad
@@ -16,4 +16,4 @@
 </IfModule>
 
 # Deshabilitar listado de directorios
-Options -Indexes
+#Options -Indexes

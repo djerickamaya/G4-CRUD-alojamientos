@@ -18,7 +18,7 @@ class AlojamientoController {
     public function index() {
         $stmt = $this->alojamiento->read();
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-       # require 'views/alojamientos/index.php';
+        require '../views/alojamientos/index.php';
     }
 
     public function create() {
@@ -35,7 +35,7 @@ class AlojamientoController {
                 echo "Error al crear el alojamiento.";
             }
         } else {
-            require 'views/alojamientos/create.php';
+            require '../views/alojamientos/create.php';
         }
     }
 
@@ -56,7 +56,7 @@ class AlojamientoController {
         } else {
             $stmt = $this->alojamiento->read();
             $alojamiento = $stmt->fetch(PDO::FETCH_ASSOC);
-            require 'views/alojamientos/edit.php';
+            require '../views/alojamientos/edit.php';
         }
     }
 
@@ -73,7 +73,7 @@ class AlojamientoController {
         $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
         $stmt = $this->alojamiento->search($keywords);
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-       # require 'views/alojamientos/index.php';
+        require '../views/alojamientos/search.php';
     }
 
     public function saveUserAlojamientos($usuario_id) {
@@ -85,7 +85,7 @@ class AlojamientoController {
         } else {
             $stmt = $this->alojamiento->read();
             $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            require 'views/alojamientos/select.php';
+            require '../views/alojamientos/select.php';
         }
     }
 }
@@ -101,7 +101,18 @@ switch ($action) {
     case 'search':
         $controller->search();
         break;
-    // Otros casos para diferentes acciones (index, edit, delete, etc.)
+    case 'edit':
+        $id = isset($_GET['id']) ? $_GET['id'] : die('Error: ID no encontrado.');
+        $controller->edit($id);
+        break;
+    case 'delete':
+        $id = isset($_GET['id']) ? $_GET['id'] : die('Error: ID no encontrado.');
+        $controller->delete($id);
+        break;
+    case 'saveUserAlojamientos':
+        $usuario_id = isset($_GET['usuario_id']) ? $_GET['usuario_id'] : die('Error: ID no encontrado.');
+        $controller->saveUserAlojamientos($usuario_id);
+        break;
     default:
         $controller->index();
         break;

@@ -36,6 +36,7 @@
 <body>
     <h1>Buscar Alojamientos</h1>
     <form action="../../controllers/AlojamientoController.php?action=search" method="get">
+        <input type="hidden" name="action" value="search">
         <input type="text" name="keywords" placeholder="Buscar por nombre o dirección">
         <input type="submit" value="Buscar">
     </form>

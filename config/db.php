@@ -2,10 +2,10 @@
 
 class DataBase {
     public $host = "localhost";
-    public $port = "3306"; 
+    public $port = "3307"; 
     public $dbname = "alojamientos_db";
     public $username = "root";
-    public $password = "";
+    public $password = "alfaomega";
     public $conn;
 
     public function getConnection() {
