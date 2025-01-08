@@ -1,52 +1,44 @@
-<?php 
+<?php
+// Incluir el archivo de conexión
+require_once './config/db.php';
 
-// llamar al archivo de conexion
-require_once '../config/db.php';
+// Obtener conexión desde la clase DataBase
+$database = new DataBase();
+$conn = $database->getConnection();
 
-// Funcion para obtener los lugares que redirigira el menu
-function getMenuItems($parent_id = NULL, $connection){
-    $sql = "SELECT * FROM menu WHERE parent_id ".($parent_id === NULL ? "IS NULL" : "= $parent_id");
-    $result = $connection->query($sql);
+// Función para obtener los elementos del menú
+function getMenuItems($parent_id = NULL, $conn) {
+    $sql = "SELECT * FROM menu WHERE parent_id " . ($parent_id === NULL ? "IS NULL" : "= :parent_id");
+    $stmt = $conn->prepare($sql);
 
-    $menu = [];
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
-            $menu[] = $row; 
-        }
+    if ($parent_id !== NULL) {
+        $stmt->bindParam(':parent_id', $parent_id, PDO::PARAM_INT);
     }
+
+    $stmt->execute();
+    $menu = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     return $menu;
 }
 
-// renderizar
-function renderMenu($parent_id = NULL,$connection){
-    $menuItems = getMenuItems($parent_id,$connection);
+// Función para renderizar el menú
+function renderMenu($parent_id = NULL, $conn) {
+    $menuItems = getMenuItems($parent_id, $conn);
 
-    if(!empty($menuItems)){
+    if (!empty($menuItems)) {
         echo '<ul>';
-        foreach($menuItems as $menuItem){
+        foreach ($menuItems as $menuItem) {
             echo '<li>';
-            echo '<a href="'.$menuItem['url'].'">'.$menuItem['name'].'</a>';
-            renderMenu($menuItem['id'],$connection);
+            echo '<a href="' . htmlspecialchars($menuItem['url']) . '">' . htmlspecialchars($menuItem['nombre']) . '</a>';
+            renderMenu($menuItem['id'], $conn); // Llamada recursiva
             echo '</li>';
         }
         echo '</ul>';
     }
 }
 
+// Mostrar el menú
 echo '<nav>';
-renderMenu(NULL,$connection);
+renderMenu(NULL, $conn);
 echo '</nav>';
-
-$connection->close();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
