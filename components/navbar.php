@@ -1,10 +1,5 @@
 <?php
 // Incluir el archivo de conexión
-require_once '../config/db.php';
-
-// Obtener conexión desde la clase DataBase
-$database = new DataBase();
-$conn = $database->getConnection();
 
 // Función para obtener los elementos del menú
 function getMenuItems($parent_id = NULL, $conn) {

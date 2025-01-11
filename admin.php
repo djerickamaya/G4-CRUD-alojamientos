@@ -1,9 +1,6 @@
 <?php
 session_start();
-require_once '../config/db.php';
-
-$database = new Database();
-$conn = new mysqli($database->host, $database->username, $database->pasword, $database->dbname, $database->port);
+$conn = new mysqli('localhost', 'root', '', 'alojamientos_db');
 
 // Verificar la conexión
 if ($conn->connect_error) {

@@ -1,17 +1,18 @@
 <?php
 session_start();
-require_once '../config/db.php';
+require_once './config/db.php';
 
 $database = new Database();
+$connI = $database->getMysqliConnection();
+$conn = $database->getConnection();
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
 
-$conn = new mysqli($database->host, $database->username, $database->pasword, $database->dbname, $database->port);
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+if ($connI->connect_error) {
+    die("Conexión fallida: " . $connI->connect_error);
 }
 
 // Manejar la eliminación de alojamientos
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete'])) {
     $alojamiento_id = $_POST['alojamiento_id'];
     $user_id = $_SESSION['user_id'];
     $sql = "DELETE FROM usuarios_alojamientos WHERE usuario_id='$user_id' AND alojamiento_id='$alojamiento_id'";
-    $conn->query($sql);
+    $connI->query($sql);
 }
 
 // Manejar el cierre de sesión
@@ -32,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['logout'])) {
 // Mostrar alojamientos del usuario
 $user_id = $_SESSION['user_id'];
 $sql = "SELECT a.* FROM alojamientos a JOIN usuarios_alojamientos ua ON a.id = ua.alojamiento_id WHERE ua.usuario_id='$user_id'";
-$result = $conn->query($sql);
+$result = $connI->query($sql);
 ?>
 
 <!DOCTYPE html>

@@ -1,15 +1,17 @@
 <?php
-require_once '../config/db.php';
+require_once './config/db.php';
 
 $database = new Database();
+$connI = $database->getMysqliConnection();
+$conn = $database->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $conn = new mysqli($database->host, $database->username, $database->pasword, $database->dbname, $database->port);
+    $connI = $database->getMysqliConnection();
     $sql = "SELECT * FROM usuarios WHERE email='$email'";
-    $result = $conn->query($sql);
+    $result = $connI->query($sql);
     $user = $result->fetch_assoc();
 
     if ($user && password_verify($password, $user['password'])) {

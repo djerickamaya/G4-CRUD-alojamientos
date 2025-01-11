@@ -1,14 +1,16 @@
 <?php
-require_once '../config/db.php';
+require_once './config/db.php';
 
 $database = new Database();
+$connI = $database->getMysqliConnection();
+$conn = $database->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $conn = new mysqli($database->host, $database->username, $database->pasword, $database->dbname, $database->port);
+    $conn = new mysqli('localhost', 'root', '', 'alojamientos_db');
     $sql = "INSERT INTO usuarios (nombre, email, password) VALUES ('$username', '$email', '$password')";
 
     if ($conn->query($sql) === TRUE) {

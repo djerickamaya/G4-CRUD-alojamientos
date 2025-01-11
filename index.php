@@ -1,13 +1,13 @@
 <?php
 session_start();
-require_once '../config/db.php';
+require_once './config/db.php';
 
 $database = new Database();
-$conn = new mysqli($database->host, $database->username, $database->pasword, $database->dbname, $database->port);
-
+$connI = $database->getMysqliConnection();
+$conn = $database->getConnection();
 // Verificar la conexión
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
+if ($connI->connect_error) {
+    die("Error de conexión: " . $connI->connect_error);
 }
 
 // Manejar la selección de alojamientos
@@ -17,22 +17,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['like']) && isset($_SES
 
     // Verificar si ya existe la combinación en la tabla
     $check_sql = "SELECT * FROM usuarios_alojamientos WHERE usuario_id='$user_id' AND alojamiento_id='$alojamiento_id'";
-    $check_result = $conn->query($check_sql);
+    $check_result = $connI->query($check_sql);
 
     if ($check_result->num_rows == 0) {
         // Si no existe, insertar la nueva combinación
         $sql = "INSERT INTO usuarios_alojamientos (usuario_id, alojamiento_id) VALUES ('$user_id', '$alojamiento_id')";
-        $conn->query($sql);
+        $connI->query($sql);
     }
 }
 
 // Consulta de alojamientos
 $sql = "SELECT * FROM alojamientos";
-$result = $conn->query($sql);
+$result = $connI->query($sql);
 
 // Verificar si la consulta fue exitosa
 if (!$result) {
-    die("Error en la consulta: " . $conn->error);
+    die("Error en la consulta: " . $connI->error);
 }
 ?>
 <!DOCTYPE html>

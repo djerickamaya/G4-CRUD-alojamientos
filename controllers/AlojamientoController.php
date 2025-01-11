@@ -16,9 +16,7 @@ class AlojamientoController {
     }
 
     public function index() {
-        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
-            header('Location: ../views/alojamientos/search.php');
-        }
+
         $stmt = $this->alojamiento->read();
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         require '../views/alojamientos/index.php';
@@ -26,9 +24,6 @@ class AlojamientoController {
 
     public function create() {
     
-        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
-            header('Location: ../views/alojamientos/search.php');
-        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->alojamiento->nombre = $_POST['nombre'];
             $this->alojamiento->descripcion = $_POST['descripcion'];
@@ -37,7 +32,7 @@ class AlojamientoController {
             $this->alojamiento->imagen_url = $_POST['imagen_url'];
 
             if ($this->alojamiento->create()) {
-                header('Location: ../views/alojamientos/search.php');
+                header('Location: ../views/alojamientos/index.php');
             } else {
                 echo "Error al crear el alojamiento.";
             }
@@ -47,9 +42,6 @@ class AlojamientoController {
     }
 
     public function edit($id) {
-        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
-            header('Location: ../views/alojamientos/search.php');
-        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->alojamiento->id = $id;
             $this->alojamiento->nombre = $_POST['nombre'];
@@ -71,9 +63,6 @@ class AlojamientoController {
     }
 
     public function delete($id) {
-        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
-            header('Location: ../views/alojamientos/search.php');
-        }
         $this->alojamiento->id = $id;
         if ($this->alojamiento->delete()) {
             header('Location: index.php');
@@ -86,7 +75,7 @@ class AlojamientoController {
         $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
         $stmt = $this->alojamiento->search($keywords);
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        require '../views/alojamientos/search.php';
+        require '../views/alojamientos/index.php';
     }
 
     public function select() {
@@ -97,7 +86,7 @@ class AlojamientoController {
 
     public function saveUserAlojamientos() {
         if (!isset($_SESSION['usuario_id'])) {
-            header('Location: ../views/alojamientos/search.php');
+            header('Location: ../views/alojamientos/index.php');
         }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $selectedAlojamientos = isset($_POST['alojamientos']) ? $_POST['alojamientos'] : [];
@@ -122,9 +111,6 @@ switch ($action) {
     case 'create':
         $controller->create();
         break;
-    case 'search':
-        $controller->search();
-        break;
     case 'edit':
         $id = isset($_GET['id']) ? $_GET['id'] : die('Error: ID no encontrado.');
         $controller->edit($id);
@@ -132,9 +118,6 @@ switch ($action) {
     case 'delete':
         $id = isset($_GET['id']) ? $_GET['id'] : die('Error: ID no encontrado.');
         $controller->delete($id);
-        break;
-    case 'select':
-        $controller->select();
         break;
     case 'saveUserAlojamientos':
         $controller->saveUserAlojamientos();
