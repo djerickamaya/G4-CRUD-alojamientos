@@ -1,9 +1,13 @@
 <?php
+require_once '../config/db.php';
+
+$database = new Database();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $conn = new mysqli('localhost', 'root', '', 'alojamientos_db');
+    $conn = new mysqli($database->host, $database->username, $database->pasword, $database->dbname, $database->port);
     $sql = "SELECT * FROM usuarios WHERE email='$email'";
     $result = $conn->query($sql);
     $user = $result->fetch_assoc();

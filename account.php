@@ -1,11 +1,14 @@
 <?php
 session_start();
+require_once '../config/db.php';
+
+$database = new Database();
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
 
-$conn = new mysqli('localhost', 'root', '', 'alojamientos_db');
+$conn = new mysqli($database->host, $database->username, $database->pasword, $database->dbname, $database->port);
 
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);

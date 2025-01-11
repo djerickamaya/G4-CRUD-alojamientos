@@ -1,6 +1,6 @@
 <?php
 // Incluir el archivo de conexión
-require_once ':./config/db.php';
+require_once '../config/db.php';
 
 // Obtener conexión desde la clase DataBase
 $database = new DataBase();
