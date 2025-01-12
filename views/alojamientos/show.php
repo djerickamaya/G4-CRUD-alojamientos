@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalles del Alojamiento</title>
+    <link rel="stylesheet" type="text/css" href="../../css/styles.css">
 </head>
-<body>
+<body class="formulario-alojamiento">
+    <?php include '../components/navbar.php'; ?>
     <h1>Detalles del Alojamiento</h1>
     <div>
         <strong>Nombre:</strong>

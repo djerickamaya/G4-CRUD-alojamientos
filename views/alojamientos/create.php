@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Alojamiento</title>
+    <link rel="stylesheet" type="text/css" href="../../css/styles.css">
 </head>
 <body>
+    <?php include '../components/navbar.php'; ?>
     <h1>Crear Nuevo Alojamiento</h1>
-    <form action="../../controllers/AlojamientoController.php?action=create" method="post">
+    <form  class="formulario-alojamiento" action="../../controllers/AlojamientoController.php?action=create" method="post">
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
@@ -31,6 +33,8 @@
             <input type="submit" value="Crear">
         </div>
     </form>
-    <a href="../../controllers/AlojamientoController.php">Volver a la lista de alojamientos</a>
+    <div class="boton-container">
+        <a class="boton-de-redireccion" href="../../controllers/AlojamientoController.php">Volver a la lista de alojamientos</a>
+    </div>
 </body>
 </html>

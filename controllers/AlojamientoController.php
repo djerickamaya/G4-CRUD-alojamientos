@@ -16,21 +16,20 @@ class AlojamientoController {
     }
 
     public function index() {
-
+        $conn = $this->getConnection();
         $stmt = $this->alojamiento->read();
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         require '../views/alojamientos/index.php';
     }
 
     public function create() {
-    
+        $conn = $this->getConnection();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->alojamiento->nombre = $_POST['nombre'];
             $this->alojamiento->descripcion = $_POST['descripcion'];
             $this->alojamiento->direccion = $_POST['direccion'];
             $this->alojamiento->precio = $_POST['precio'];
-            $this->alojamiento->imagen_url = $_POST['imagen_url'];
-
+            $this->alojamiento->imagen_url = $_POST['imagen_url'];            
             if ($this->alojamiento->create()) {
                 header('Location: ../views/alojamientos/index.php');
             } else {
@@ -58,6 +57,7 @@ class AlojamientoController {
         } else {
             $stmt = $this->alojamiento->read();
             $alojamiento = $stmt->fetch(PDO::FETCH_ASSOC);
+            $conn = $this->getConnection();
             require '../views/alojamientos/edit.php';
         }
     }
@@ -73,12 +73,14 @@ class AlojamientoController {
 
     public function search() {
         $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
+        $conn = $this->getConnection();
         $stmt = $this->alojamiento->search($keywords);
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         require '../views/alojamientos/index.php';
     }
 
     public function select() {
+        $conn = $this->getConnection();
         $stmt = $this->alojamiento->read();
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         require '../views/alojamientos/select.php';
@@ -98,6 +100,10 @@ class AlojamientoController {
             $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             require '../views/alojamientos/select.php';
         }
+    }
+
+    public function getConnection() {
+        return $this->db;
     }
 }
 
