@@ -48,6 +48,7 @@ $result = $connI->query($sql);
     <?php include 'components/navbar.php'; ?>
     <h1>Mis Alojamientos</h1>
     <form method="post" action="account.php">
+        Hola <?php echo  $_SESSION['user_id']?>
         <button type="submit" name="logout">Cerrar sesión</button>
     </form>
     <div class="container">

@@ -6,9 +6,9 @@
     <link rel="stylesheet" type="text/css" href="../../css/styles.css">
 </head>
 <body>
-    <?php include '../components/navbar.php'; ?>
+    <?php include_once '../components/navbar.php'; ?>
     <h1>Editar Alojamiento</h1>
-    <form class="formulario-alojamiento" action="edit.php?id=<?php echo $alojamiento['id']; ?>" method="post">
+    <form class="formulario-alojamiento" action="../../controllers/AlojamientoController.php?action=edit&id=<?php echo $alojamiento['id']; ?>" method="post">
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($alojamiento['nombre']); ?>" required>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/styles.css">
 </head>
 <body>
-    <?php include '../components/navbar.php'; ?>
+    <?php include_once '../components/navbar.php'; ?>
     <h1>Crear Nuevo Alojamiento</h1>
     <form  class="formulario-alojamiento" action="../../controllers/AlojamientoController.php?action=create" method="post">
         <div>
@@ -23,7 +23,7 @@
         </div>
         <div>
             <label for="precio">Precio:</label>
-            <input type="number" step="0.01" id="precio" name="precio">
+            <input type="number" step="0.01" id="precio" name="precio" min="0">
         </div>
         <div>
             <label for="imagen_url">URL de la Imagen:</label>

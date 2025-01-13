@@ -1,3 +1,9 @@
+<?php 
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: ../../login.php'); // Redirigir a la página de inicio de sesión si no hay sesión activa
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/styles.css">
 </head>
 <body>
-    <?php include '../components/navbar.php'; ?>
+    <?php include_once '../components/navbar.php'; ?>
     <h1>Alojamientos</h1>
     <form action="../../controllers/AlojamientoController.php?action=index" method="get">
         <input type="text" name="keywords" placeholder="Buscar por nombre o dirección">

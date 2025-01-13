@@ -28,6 +28,10 @@ function renderMenu($parent_id = NULL, $conn) {
             renderMenu($menuItem['id'], $conn); // Llamada recursiva
             echo '</li>';
         }
+
+        // Cierre de Sesion
+        echo '<li class="navbar-item"><a href="../components/logout.php" class="navbar-link">Cerrar Sesión</a></li>';
+
         echo '</ul>
         </nav>';
     }

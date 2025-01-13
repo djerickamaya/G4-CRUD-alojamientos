@@ -31,7 +31,7 @@ class AlojamientoController {
             $this->alojamiento->precio = $_POST['precio'];
             $this->alojamiento->imagen_url = $_POST['imagen_url'];            
             if ($this->alojamiento->create()) {
-                header('Location: ../views/alojamientos/index.php');
+                header('Location: /controllers/AlojamientoController.php');
             } else {
                 echo "Error al crear el alojamiento.";
             }
@@ -50,7 +50,7 @@ class AlojamientoController {
             $this->alojamiento->imagen_url = $_POST['imagen_url'];
 
             if ($this->alojamiento->update()) {
-                header('Location: index.php');
+                header('Location: /controllers/AlojamientoController.php');
             } else {
                 echo "Error al actualizar el alojamiento.";
             }
@@ -65,7 +65,7 @@ class AlojamientoController {
     public function delete($id) {
         $this->alojamiento->id = $id;
         if ($this->alojamiento->delete()) {
-            header('Location: index.php');
+            header('Location: /controllers/AlojamientoController.php');
         } else {
             echo "Error al eliminar el alojamiento.";
         }
@@ -132,4 +132,5 @@ switch ($action) {
         $controller->index();
         break;
 }
+
 ?>
