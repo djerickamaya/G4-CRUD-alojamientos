@@ -92,7 +92,7 @@ class AlojamientoController {
         }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $selectedAlojamientos = isset($_POST['alojamientos']) ? $_POST['alojamientos'] : [];
-            $this->usuarioAlojamiento->saveAlojamientos($_SESSION["usuario_id"], $selectedAlojamientos);
+            $this->usuarioAlojamiento->save($_SESSION["usuario_id"], $selectedAlojamientos);
             #$this->usuarioAlojamiento->deleteAlojamientos($usuario_id, $selectedAlojamientos);
             header('Location: index.php');
         } else {
