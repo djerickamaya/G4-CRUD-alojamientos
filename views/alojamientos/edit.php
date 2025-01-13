@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Alojamiento</title>
+    <link rel="stylesheet" type="text/css" href="../../css/styles.css">
 </head>
 <body>
+    <?php include '../components/navbar.php'; ?>
     <h1>Editar Alojamiento</h1>
-    <form action="edit.php?id=<?php echo $alojamiento['id']; ?>" method="post">
+    <form class="formulario-alojamiento" action="edit.php?id=<?php echo $alojamiento['id']; ?>" method="post">
         <div>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($alojamiento['nombre']); ?>" required>
@@ -31,6 +33,8 @@
             <input type="submit" value="Guardar Cambios">
         </div>
     </form>
-    <a href="../../controllers/AlojamientoController.php">Volver a la lista de alojamientos</a>
+    <div class="boton-container">
+        <a class="boton-de-redireccion" href="../../controllers/AlojamientoController.php">Volver a la lista de alojamientos</a>
+    </div>
 </body>
 </html>

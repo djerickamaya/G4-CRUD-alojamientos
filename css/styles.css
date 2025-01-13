@@ -1,0 +1,175 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1em auto;
+    width: 90%;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #ddd;
+    margin: 1em;
+    padding: 1em;
+    width: calc(33% - 2em);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+}
+
+.card h2 {
+    color: #333;
+}
+
+.card p {
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: calc(50% - 2em);
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: calc(100% - 2em);
+    }
+}
+
+.navbar {
+    background-color: #333;
+    padding: 1em;
+    text-align: center;
+}
+
+.navbar-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-item {
+    display: inline;
+    margin: 0 1em;
+}
+
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    transition: background-color 0.2s;
+}
+
+.navbar-link:hover {
+    background-color: #555;
+    border-radius: 4px;
+}
+
+/* Estilos específicos para el formulario */
+.formulario-alojamiento {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.formulario-alojamiento div {
+    margin-bottom: 15px;
+}
+
+.formulario-alojamiento label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.formulario-alojamiento input[type="text"],
+.formulario-alojamiento input[type="number"],
+.formulario-alojamiento textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.formulario-alojamiento input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.formulario-alojamiento input[type="submit"]:hover {
+    background-color: #555;
+}
+
+.formulario-alojamiento a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.formulario-alojamiento a:hover {
+    text-decoration: underline;
+}
+
+.boton-de-redireccion {
+    display: inline-block;
+    padding: 5px 20px; /* 5px de altura y 20px de ancho */
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s, transform 0.2s;
+    margin: 0 auto; /* Centrar horizontalmente */
+}
+
+.boton-de-redireccion:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.boton-de-redireccion:active {
+    background-color: #004085;
+    transform: scale(1);
+}
+
+.boton-container {
+    text-align: center; /* Centrar el contenedor */
+    margin-top: 20px; /* Espacio superior opcional */
+}

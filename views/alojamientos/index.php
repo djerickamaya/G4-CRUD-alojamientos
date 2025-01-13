@@ -19,14 +19,18 @@
             background-color: #f2f2f2;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="../../css/styles.css">
 </head>
 <body>
+    <?php include '../components/navbar.php'; ?>
     <h1>Alojamientos</h1>
     <form action="../../controllers/AlojamientoController.php?action=index" method="get">
         <input type="text" name="keywords" placeholder="Buscar por nombre o dirección">
         <input type="submit" value="Buscar">
     </form>
-    <a href="../../controllers/AlojamientoController.php?action=create">Crear nuevo alojamiento</a>
+    <div class="boton-container">
+        <a class="boton-de-redireccion" href="../../controllers/AlojamientoController.php?action=create">Crear nuevo alojamiento</a>
+    </div>
     <table>
         <thead>
             <tr>

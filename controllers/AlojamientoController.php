@@ -16,28 +16,22 @@ class AlojamientoController {
     }
 
     public function index() {
-        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
-            header('Location: ../views/alojamientos/search.php');
-        }
+        $conn = $this->getConnection();
         $stmt = $this->alojamiento->read();
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         require '../views/alojamientos/index.php';
     }
 
     public function create() {
-    
-        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
-            header('Location: ../views/alojamientos/search.php');
-        }
+        $conn = $this->getConnection();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->alojamiento->nombre = $_POST['nombre'];
             $this->alojamiento->descripcion = $_POST['descripcion'];
             $this->alojamiento->direccion = $_POST['direccion'];
             $this->alojamiento->precio = $_POST['precio'];
-            $this->alojamiento->imagen_url = $_POST['imagen_url'];
-
+            $this->alojamiento->imagen_url = $_POST['imagen_url'];            
             if ($this->alojamiento->create()) {
-                header('Location: ../views/alojamientos/search.php');
+                header('Location: ../views/alojamientos/index.php');
             } else {
                 echo "Error al crear el alojamiento.";
             }
@@ -47,9 +41,6 @@ class AlojamientoController {
     }
 
     public function edit($id) {
-        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
-            header('Location: ../views/alojamientos/search.php');
-        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->alojamiento->id = $id;
             $this->alojamiento->nombre = $_POST['nombre'];
@@ -66,14 +57,12 @@ class AlojamientoController {
         } else {
             $stmt = $this->alojamiento->read();
             $alojamiento = $stmt->fetch(PDO::FETCH_ASSOC);
+            $conn = $this->getConnection();
             require '../views/alojamientos/edit.php';
         }
     }
 
     public function delete($id) {
-        if (!isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin') {
-            header('Location: ../views/alojamientos/search.php');
-        }
         $this->alojamiento->id = $id;
         if ($this->alojamiento->delete()) {
             header('Location: index.php');
@@ -84,12 +73,14 @@ class AlojamientoController {
 
     public function search() {
         $keywords = isset($_GET['keywords']) ? $_GET['keywords'] : '';
+        $conn = $this->getConnection();
         $stmt = $this->alojamiento->search($keywords);
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        require '../views/alojamientos/search.php';
+        require '../views/alojamientos/index.php';
     }
 
     public function select() {
+        $conn = $this->getConnection();
         $stmt = $this->alojamiento->read();
         $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         require '../views/alojamientos/select.php';
@@ -97,11 +88,11 @@ class AlojamientoController {
 
     public function saveUserAlojamientos() {
         if (!isset($_SESSION['usuario_id'])) {
-            header('Location: ../views/alojamientos/search.php');
+            header('Location: ../views/alojamientos/index.php');
         }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $selectedAlojamientos = isset($_POST['alojamientos']) ? $_POST['alojamientos'] : [];
-            $this->usuarioAlojamiento->saveAlojamientos($_SESSION["usuario_id"], $selectedAlojamientos);
+            $this->usuarioAlojamiento->save($_SESSION["usuario_id"], $selectedAlojamientos);
             #$this->usuarioAlojamiento->deleteAlojamientos($usuario_id, $selectedAlojamientos);
             header('Location: index.php');
         } else {
@@ -109,6 +100,10 @@ class AlojamientoController {
             $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             require '../views/alojamientos/select.php';
         }
+    }
+
+    public function getConnection() {
+        return $this->db;
     }
 }
 
@@ -122,9 +117,6 @@ switch ($action) {
     case 'create':
         $controller->create();
         break;
-    case 'search':
-        $controller->search();
-        break;
     case 'edit':
         $id = isset($_GET['id']) ? $_GET['id'] : die('Error: ID no encontrado.');
         $controller->edit($id);
@@ -132,9 +124,6 @@ switch ($action) {
     case 'delete':
         $id = isset($_GET['id']) ? $_GET['id'] : die('Error: ID no encontrado.');
         $controller->delete($id);
-        break;
-    case 'select':
-        $controller->select();
         break;
     case 'saveUserAlojamientos':
         $controller->saveUserAlojamientos();
